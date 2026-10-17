@@ -50,7 +50,7 @@ class WhisperAccessibilityService : AccessibilityService() {
         private const val SAMPLE_RATE = 16000
         private const val MARGIN_DP = 8
 
-        private const val ALPHA_IDLE = 0.7f
+        private const val ALPHA_IDLE = 0.8f
         private const val ALPHA_ACTIVE = 1.0f
         private const val ALPHA_FADE_MS = 150L
         private const val FADE_OUT_MS = 140L
@@ -74,7 +74,7 @@ class WhisperAccessibilityService : AccessibilityService() {
         private const val NOTIF_CHANNEL_ID = "openwhispr_service"
         private const val NOTIF_ID = 1
 
-        private const val COLOR_IDLE = 0xDD1C1C1E.toInt()
+        private const val COLOR_IDLE = 0xE62C2C2E.toInt()
         // [ui] Soft red for the recording state (logo tint + outline);
         // replaces the old solid red / grey button colours.
         private const val COLOR_REC_ACCENT = 0xFFFF6B6B.toInt()
@@ -95,13 +95,15 @@ class WhisperAccessibilityService : AccessibilityService() {
     private var overlayView: FrameLayout? = null
     private var overlayShown = false
 
-    // Two independent signals feed overlay visibility (OR'd together): an
+    // Independent signals feed overlay visibility (OR'd together): an
     // accessibility-tree focus check (event-driven AND polled as a failsafe,
     // since some apps -- notably WhatsApp/Telegram -- don't reliably fire
-    // focus events for their custom message composers) and the system
-    // keyboard's own visibility (window-manager-level, doesn't depend on the
-    // foreground app cooperating with accessibility at all).
+    // focus events for their custom message composers), the keyboard's own
+    // window appearing in the accessibility window list (doesn't depend on
+    // the foreground app cooperating with accessibility at all), and IME
+    // insets on the overlay view as a last-resort extra.
     private var accessibilityFocusSignal = false
+    private var imeWindowSignal = false
     private var imeVisibleSignal = false
     private var button: ImageView? = null
     // [ui] Smoothed recording level for the voice-reactive overlay (main thread).
@@ -284,19 +286,42 @@ class WhisperAccessibilityService : AccessibilityService() {
 
     private fun refreshAccessibilityFocusSignal() {
         try {
-            val root = rootInActiveWindow
-            val focused = root?.findFocus(AccessibilityNodeInfo.FOCUS_INPUT)
-            // The foreground app's own tree is only one witness: web-based
-            // composers (the Claude app's Code tab) often don't report an
-            // editable focus at all. The other two come from the system.
-            accessibilityFocusSignal = (focused != null && isEditableTextField(focused)) ||
-                hasActiveTextInput() || isKeyboardWindowShown()
-            focused?.recycle()
-            root?.recycle()
+            // The keyboard's own window showing up in the window list is the
+            // most direct signal there is (needs flagRetrieveInteractiveWindows).
+            // The IME insets listener below can't be relied on for this: an
+            // accessibility overlay sits above the IME layer, and the system
+            // doesn't hand IME insets to windows above it.
+            val allWindows = windows.orEmpty()
+            imeWindowSignal = allWindows.any { it.type == AccessibilityWindowInfo.TYPE_INPUT_METHOD }
+
+            // Input focus can live in a window other than the "active" one
+            // (dialogs, bottom sheets, popups), so check every app window
+            // rather than just rootInActiveWindow. Web-based composers often
+            // don't report an editable focus at all, so the open input
+            // connection (flagInputMethodEditor) is a further witness.
+            var focusFound = hasEditableInputFocus(rootInActiveWindow)
+            if (!focusFound) {
+                focusFound = allWindows
+                    .filter { it.type == AccessibilityWindowInfo.TYPE_APPLICATION }
+                    .any { hasEditableInputFocus(it.root) }
+            }
+            accessibilityFocusSignal = focusFound || hasActiveTextInput()
         } catch (e: Exception) {
             Log.e(TAG, "refreshAccessibilityFocusSignal failed", e)
         } finally {
             updateOverlayVisibility()
+        }
+    }
+
+    /** Recycles [root]. */
+    private fun hasEditableInputFocus(root: AccessibilityNodeInfo?): Boolean {
+        root ?: return false
+        val focused = root.findFocus(AccessibilityNodeInfo.FOCUS_INPUT)
+        return try {
+            focused != null && isEditableTextField(focused)
+        } finally {
+            focused?.recycle()
+            root.recycle()
         }
     }
 
@@ -315,26 +340,17 @@ class WhisperAccessibilityService : AccessibilityService() {
         return method.currentInputStarted && inputType != InputType.TYPE_NULL
     }
 
-    /** The keyboard's own window is on screen. Needs
-     * flagRetrieveInteractiveWindows; without it the list is empty. */
-    private fun isKeyboardWindowShown(): Boolean =
-        try {
-            windows?.any { it.type == AccessibilityWindowInfo.TYPE_INPUT_METHOD } == true
-        } catch (e: Exception) {
-            false
-        }
-
-    /** Fed by the overlay view's WindowInsets listener -- catches apps whose
-     * custom composers (WhatsApp, Telegram, ...) never fire accessibility
-     * focus events at all, since this signal comes from the window manager
-     * rather than the foreground app's own accessibility tree. */
+    /** Fed by the overlay view's WindowInsets listener. Only a backup: on
+     * many devices the system doesn't deliver IME insets to accessibility
+     * overlays at all (see imeWindowSignal for the primary keyboard check). */
     private fun onKeyboardVisibilityChanged(visible: Boolean) {
         imeVisibleSignal = visible
         updateOverlayVisibility()
     }
 
     private fun wantsOverlay(): Boolean =
-        masterEnabled() && (accessibilityFocusSignal || imeVisibleSignal || state != State.IDLE)
+        masterEnabled() &&
+            (accessibilityFocusSignal || imeWindowSignal || imeVisibleSignal || state != State.IDLE)
 
     private fun updateOverlayVisibility() {
         val shouldShow = wantsOverlay()
@@ -927,7 +943,7 @@ class WhisperAccessibilityService : AccessibilityService() {
                 Log.i(TAG, "Local transcription: ${ms}ms, ${samples.size / SAMPLE_RATE}s audio")
 
                 handleTranscriptionResult(text)
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 Log.e(TAG, "Local transcription failed", e)
                 handler.post {
                     toast(getString(R.string.local_transcription_error, e.message ?: getString(R.string.unknown_error)))
@@ -1210,15 +1226,17 @@ class WhisperAccessibilityService : AccessibilityService() {
 
     private fun findInjectionCandidates(): List<AccessibilityNodeInfo> {
         val candidates = mutableListOf<AccessibilityNodeInfo>()
+        var activeWindowId = -1
 
         rootInActiveWindow?.let { root ->
             Log.i(TAG, "Active root: package=${root.packageName} class=${root.className}")
+            activeWindowId = root.windowId
             collectInjectionCandidates(root, candidates)
             root.recycle()
         }
 
         windows
-            ?.filter { it.isActive || it.isFocused }
+            ?.filter { (it.isActive || it.isFocused) && it.id != activeWindowId }
             ?.forEach { window ->
                 val root = window.root ?: return@forEach
                 Log.i(
