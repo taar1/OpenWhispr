@@ -106,12 +106,6 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 2)
         }
 
-        // [privacy] The automatic update check on app open is opt-in (off by
-        // default, including for existing installs), so the app makes no
-        // request to GitHub unless the user enables it or taps "Check for
-        // updates".
-        if (prefs().getBoolean("auto_update_check", false)) checkForUpdate()
-
         val outer = vertical(0, 0)
 
         // Top large header (like "Connected devices"), with the app icon
@@ -514,7 +508,6 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             getString(R.string.unknown_version)
         }
-        // [ui] The separate "Version" row is folded into "Check for updates" below.
 
         aboutGroup.addView(settingsRow(getString(R.string.github), getString(R.string.github_summary)) {
             try {
@@ -524,32 +517,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        aboutGroup.addView(settingsRow(getString(R.string.check_updates), getString(R.string.about_current_version, versionName)) {
-            checkForUpdate(force = true)
-        })
-
-        // [privacy] Opt-in switch for the automatic check on app open (see onCreate).
-        val autoUpdateSwitch = MaterialSwitch(this).apply {
-            isChecked = prefs().getBoolean("auto_update_check", false)
-            isClickable = false
-        }
-        // [ui] Subtitle follows the switch state (it used to always say "Off").
-        fun autoUpdateText(on: Boolean) =
-            if (on) "On: checks when the app opens (at most every 12 h)"
-            else "Off: only when you tap Check for updates"
-        lateinit var autoUpdateRowSub: TextView
-        val autoUpdateRow = settingsRow(
-            "Check for updates automatically",
-            autoUpdateText(autoUpdateSwitch.isChecked),
-            autoUpdateSwitch
-        ) {
-            val newVal = !autoUpdateSwitch.isChecked
-            prefs().edit().putBoolean("auto_update_check", newVal).apply()
-            autoUpdateSwitch.isChecked = newVal
-            autoUpdateRowSub.text = autoUpdateText(newVal)
-        }
-        autoUpdateRowSub = autoUpdateRow.findViewWithTag("subtitle")
-        aboutGroup.addView(autoUpdateRow)
+        // [hardening] The in-app updater is removed (no sideloading APKs from
+        // inside an app holding the Accessibility grant), so this is just
+        // the version.
+        aboutGroup.addView(settingsRow(getString(R.string.version), versionName))
         settingsContainer.addView(aboutGroup)
 
         outer.addView(statusContainer)
@@ -869,125 +840,6 @@ class MainActivity : AppCompatActivity() {
             } catch (e2: Exception) {
                 toast(getString(R.string.open_battery_settings_failed, e2.message ?: getString(R.string.unknown_error)))
             }
-        }
-    }
-
-    /** Checks this repo's GitHub Releases. No backend involved. Shows a
-     * dialog linking to the release page when a newer version is
-     * available. [privacy] Runs on app-open only if the user turned on
-     * "Check for updates automatically" (silently, when nothing's new);
-     * [force] bypasses the cache interval and always gives feedback, for
-     * the manual "Check for updates" row. */
-    private fun checkForUpdate(force: Boolean = false) {
-        val currentVersion = try {
-            packageManager.getPackageInfo(packageName, 0).versionName
-        } catch (e: Exception) {
-            null
-        } ?: return
-
-        UpdateChecker.checkForUpdate(prefs(), currentVersion, force) { info ->
-            runOnUiThread {
-                if (isFinishing || isDestroyed) return@runOnUiThread
-                if (info != null) {
-                    android.app.AlertDialog.Builder(this)
-                        .setTitle(R.string.update_available)
-                        .setMessage(
-                            buildString {
-                                append(getString(R.string.update_available_message, info.version, currentVersion))
-                                append("\n\n${getString(R.string.whats_new)}:\n")
-                                append(
-                                    info.notes?.takeIf { it.isNotBlank() }
-                                        ?: getString(R.string.no_release_notes)
-                                )
-                            }
-                        )
-                        .setPositiveButton(getString(R.string.update)) { _, _ -> downloadAndInstallUpdate(info) }
-                        // [security] Full release page (complete changelog) before deciding.
-                        .setNeutralButton(getString(R.string.view_on_github)) { _, _ -> openReleasePage(info.url) }
-                        .setNegativeButton(getString(R.string.later), null)
-                        .show()
-                } else if (force) {
-                    toast(getString(R.string.up_to_date, currentVersion))
-                }
-            }
-        }
-    }
-
-    /** Downloads the release's .apk directly in-app and hands it to the
-     * system installer -- no browser tab, no external navigation. The final
-     * "install this app?" confirmation is a mandatory Android system dialog
-     * for a sideloaded APK and can't be skipped, but everything up to that
-     * point (download, progress) happens invisibly inside OpenWispr. */
-    private fun downloadAndInstallUpdate(info: UpdateChecker.UpdateInfo) {
-        val apkUrl = info.apkUrl
-        if (apkUrl == null) {
-            // Release has no .apk asset (shouldn't normally happen) -- fall
-            // back to the release page rather than doing nothing.
-            openReleasePage(info.url)
-            return
-        }
-
-        if (android.os.Build.VERSION.SDK_INT >= 26 && !packageManager.canRequestPackageInstalls()) {
-            android.app.AlertDialog.Builder(this)
-                .setTitle(R.string.allow_install_updates)
-                .setMessage(R.string.allow_install_updates_message)
-                .setPositiveButton(R.string.continue_button) { _, _ ->
-                    try {
-                        startActivity(
-                            Intent(
-                                Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
-                                Uri.parse("package:$packageName")
-                            )
-                        )
-                    } catch (e: Exception) {
-                        toast(getString(R.string.open_settings_failed, e.message ?: getString(R.string.unknown_error)))
-                    }
-                }
-                .setNegativeButton(getString(R.string.cancel), null)
-                .show()
-            return
-        }
-
-        toast(getString(R.string.downloading_update))
-        // [security] Pass GitHub's published checksum; downloadApk only
-        // returns a file if it matches.
-        UpdateChecker.downloadApk(this, apkUrl, info.apkSha256) { file, error ->
-            runOnUiThread {
-                if (isFinishing || isDestroyed) return@runOnUiThread
-                if (file == null) {
-                    // [security] A failed download or failed checksum both end
-                    // here; nothing is installed. Offer the release page instead.
-                    android.app.AlertDialog.Builder(this)
-                        .setTitle(R.string.update_not_installed_title)
-                        .setMessage(getString(R.string.update_not_installed_message, error ?: getString(R.string.unknown_error)))
-                        .setPositiveButton(getString(R.string.view_on_github)) { _, _ -> openReleasePage(info.url) }
-                        .setNegativeButton(getString(R.string.close_dialog), null)
-                        .show()
-                    return@runOnUiThread
-                }
-                installApk(file)
-            }
-        }
-    }
-
-    private fun openReleasePage(url: String) {
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-        } catch (e: Exception) {
-            toast("Couldn't open browser: ${e.message}")
-        }
-    }
-
-    private fun installApk(file: java.io.File) {
-        val uri = androidx.core.content.FileProvider.getUriForFile(this, "$packageName.fileprovider", file)
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, "application/vnd.android.package-archive")
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        }
-        try {
-            startActivity(intent)
-        } catch (e: Exception) {
-            toast(getString(R.string.installer_start_failed, e.message ?: getString(R.string.unknown_error)))
         }
     }
 
