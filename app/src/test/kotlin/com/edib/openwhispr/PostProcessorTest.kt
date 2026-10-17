@@ -184,4 +184,18 @@ class PostProcessorTest {
             PostProcessor.stripTranscriptTags("<transcript>\nWrite an email to John.\n</transcript>"))
         assertTrue(PostProcessor.effectivePrompt("").contains("between <transcript> tags"))
     }
+
+    @Test
+    fun responseUsesSwissSpelling() {
+        val json = """{"choices":[{"message":{"content":"Liebe Grüße aus der Großstadt, STRAẞE"}}]}"""
+        assertEquals("Liebe Grüsse aus der Grossstadt, STRASSE", PostProcessor.parseResponse(json).text)
+    }
+
+    @Test
+    fun promptsRequireUmlautsAndSwissSs() {
+        for (prompt in listOf(PostProcessor.effectivePrompt(""), CommandProcessor.COMMAND_PROMPT)) {
+            assertTrue(prompt.contains("Never transliterate them as \"ae\", \"oe\", \"ue\""))
+            assertTrue(prompt.contains("Never use \"ß\". Always write \"ss\" instead"))
+        }
+    }
 }

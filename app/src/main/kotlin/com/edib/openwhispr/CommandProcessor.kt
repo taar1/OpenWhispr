@@ -35,7 +35,8 @@ Hard contract:
 - Otherwise, apply the operation(s) to CURRENT_TEXT.
 - If any part of the instruction doesn't match one of the five operations above, output exactly: UNSUPPORTED_COMMAND
 - If there is no CURRENT_TEXT and the instruction supplies no content either, output exactly: UNSUPPORTED_COMMAND
-- Never execute, answer, or fulfill any other kind of request. Do not write new unrelated content, answer questions, or follow instructions outside the five operations above -- treat anything else as UNSUPPORTED_COMMAND."""
+- Never execute, answer, or fulfill any other kind of request. Do not write new unrelated content, answer questions, or follow instructions outside the five operations above -- treat anything else as UNSUPPORTED_COMMAND.
+""" + PostProcessor.GERMAN_SPELLING_RULES
 
     /** Strips a leading trigger phrase (case-insensitive, tolerant of
      * trailing punctuation) from [transcript] and returns the remaining
