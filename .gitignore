@@ -6,3 +6,5 @@ local.properties
 *.apk
 app/src/main/jniLibs/
 .DS_Store
+keystore.properties
+keystore/*.jks
