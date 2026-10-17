@@ -40,8 +40,29 @@ class ModelDownloaderTest {
         }
     }
 
+    @Test fun `rejects sibling dir with same prefix`() {
+        withTempDir { tmp ->
+            val archive = File(tmp, "evil.tar.bz2")
+            writeTarBz2(archive, mapOf("../out-evil/x.txt" to "gotcha"))
+
+            assertThrows(IllegalArgumentException::class.java) {
+                ModelDownloader.extractTarBz2(archive, File(tmp, "out"))
+            }
+        }
+    }
+
+    @Test fun `sha256 matches known value`() {
+        withTempDir { tmp ->
+            val f = File(tmp, "abc.txt").apply { writeText("abc") }
+            assertEquals(
+                "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+                ModelDownloader.sha256(f)
+            )
+        }
+    }
+
     @Test fun `catalog has expected structure and only the Parakeet transducer supports hotwords`() {
-        assertEquals(4, MODEL_CATALOG.size)
+        assertEquals(6, MODEL_CATALOG.size)
         assertTrue(MODEL_CATALOG.any { it.recommended })
         assertTrue(MODEL_CATALOG.all { it.archive.startsWith("sherpa-onnx-") })
         assertTrue(MODEL_CATALOG.all { it.sizeMb > 0 })
@@ -50,6 +71,7 @@ class ModelDownloaderTest {
             MODEL_CATALOG.filter { it.hotwordModelingUnit != null }.map { it.archive },
         )
         assertEquals("cjkchar", MODEL_CATALOG.single { it.hotwordModelingUnit != null }.hotwordModelingUnit)
+        assertTrue(MODEL_CATALOG.all { it.sha256.matches(Regex("[0-9a-f]{64}")) })
     }
 
     // -- helpers --
