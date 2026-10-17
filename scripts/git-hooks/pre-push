@@ -3,7 +3,10 @@
 z=0000000000000000000000000000000000000000
 while read lref lsha rref rsha; do
   [ "$lsha" = "$z" ] && continue
-  if [ "$rsha" = "$z" ]; then range="$lsha --not --remotes"; else range="$rsha..$lsha"; fi
-  "$(dirname "$0")/secret-scan.sh" range "$range" || exit 1
+  if [ "$rsha" = "$z" ]; then
+    "$(dirname "$0")/secret-scan.sh" range "$lsha" --not --remotes || exit 1
+  else
+    "$(dirname "$0")/secret-scan.sh" range "$rsha..$lsha" || exit 1
+  fi
 done
 exit 0

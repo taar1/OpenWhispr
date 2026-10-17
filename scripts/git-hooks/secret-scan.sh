@@ -1,12 +1,16 @@
 #!/bin/sh
 # Local secret guard (not part of the repo). Usage:
 #   secret-scan.sh staged          -> scan what is about to be committed
-#   secret-scan.sh range <a>..<b>  -> scan commits about to be pushed
+#   secret-scan.sh range <rev-args...> -> scan commits about to be pushed
 PATTERN='gsk_[A-Za-z0-9]{20,}|sk-or-v1-[A-Za-z0-9]{20,}|sk-(proj-)?[A-Za-z0-9_-]{32,}|sk-ant-[A-Za-z0-9_-]{20,}|AIza[0-9A-Za-z_-]{35}|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|^\+[[:space:]]*(storePassword|keyPassword)[[:space:]]*=[[:space:]]*[^[:space:]k"<][^[:space:]]{3,}'
 BADFILES='(^|/)(keystore\.properties|local\.properties|\.env|[^/]*\.jks|[^/]*\.keystore|[^/]*\.p12)$'
 if [ "$1" = "range" ]; then
-  files=$(git log --format= --name-only --diff-filter=AM "$2" | sort -u)
-  diff=$(git log -p --format= "$2")
+  shift
+  # Fail closed: if the range can't be read, block rather than wave through.
+  files=$(git log --format= --name-only --diff-filter=AM "$@") || { echo "secret-scan: can't read range $*"; exit 1; }
+  files=$(printf '%s
+' "$files" | sort -u)
+  diff=$(git log -p --format= "$@") || { echo "secret-scan: can't read range $*"; exit 1; }
 else
   files=$(git diff --cached --name-only --diff-filter=AM)
   diff=$(git diff --cached -U0)
