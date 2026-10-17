@@ -1,0 +1,9 @@
+#!/bin/sh
+# Scans every commit being pushed that the remote doesn't have yet.
+z=0000000000000000000000000000000000000000
+while read lref lsha rref rsha; do
+  [ "$lsha" = "$z" ] && continue
+  if [ "$rsha" = "$z" ]; then range="$lsha --not --remotes"; else range="$rsha..$lsha"; fi
+  "$(dirname "$0")/secret-scan.sh" range "$range" || exit 1
+done
+exit 0

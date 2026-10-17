@@ -1,3 +1,108 @@
+# OpenWispr – local-hardened (persönlicher Fork)
+
+> **Persönlicher Fork von [EdiBianco/OpenWhispr](https://github.com/EdiBianco/OpenWhispr).**
+> Er dient mir als Backup meiner lokalen Anpassungen. Es gibt hier **keine Releases, keine APKs und keine GitHub Actions**. Die App wird ausschliesslich lokal gebaut. Wer möchte, darf den Code gerne nutzen. Die Beschreibung des Originalprojekts steht weiter unten unverändert unter [Original-README](#original-readme).
+
+Arbeits-Branch ist **`local-hardened`**. Er folgt dem `main` des Originals und enthält zusätzlich die unten beschriebenen Änderungen.
+
+## Warum dieser Fork?
+
+OpenWispr braucht die **Bedienungshilfe-Berechtigung (Accessibility)**. Damit kann die App den Bildschirminhalt anderer Apps lesen und Text in jedes Feld einfügen. Ausserdem speichert sie einen **API-Key**. Das macht sie zu einem lohnenden Ziel. Meine Leitgedanken:
+
+1. **Nur ich darf Updates für die installierte App liefern.** Android akzeptiert ein Update nur, wenn es mit demselben Schlüssel signiert ist. Das Original enthielt einen öffentlich eingecheckten Debug-Keystore: Jeder hätte eine APK bauen können, die Android als Update akzeptiert, inklusive Accessibility-Berechtigung und gespeichertem API-Key.
+2. **Die App installiert sich nicht selbst neu.** Eine App mit Accessibility-Rechten sollte keine APKs herunterladen und dem Installer übergeben können. Updates kommen bei mir per `git merge` und lokalem Build.
+3. **Nichts herunterladen, was nicht geprüft ist.** Spracherkennungsmodelle werden nur entpackt, wenn ihre SHA-256-Prüfsumme stimmt.
+4. **Geheimnisse gehören nie ins Repo**, auch nicht in ein privates. Der Fork ist bewusst öffentlich. Die Sicherheit kommt aus `.gitignore`, lokalen Dateien und einem Secret-Scan vor jedem Commit und Push.
+5. **Die KI ist eine Putzhilfe, kein Ghostwriter.** Mein Tonfall, meine Wortwahl und du/Sie bleiben erhalten. Deutsch wird in **Schweizer Rechtschreibung** mit echten Umlauten ausgegeben.
+
+## Änderungen gegenüber dem Original
+
+| Bereich | Änderung |
+|---|---|
+| **Signing** | Der eingecheckte `keystore/debug.keystore` ist entfernt. Release-Builds werden mit einem **privaten, lokalen Schlüssel** signiert (`keystore.properties`, per gitignore ausgeschlossen). Debug-Builds nutzen den Debug-Key des jeweiligen Rechners. |
+| **In-App-Updater** | Komplett entfernt: `UpdateChecker`, FileProvider und die Berechtigung `REQUEST_INSTALL_PACKAGES`. Unter "Über" steht nur noch die Version. |
+| **Backups** | `dataExtractionRules` schliesst alle App-Daten (API-Key, Einstellungen, Modelle) von Cloud-Backups **und** Gerätetransfers aus. `allowBackup="false"` allein deckt Gerätetransfers ab Android 12 nicht mehr ab. |
+| **Netzwerk** | `usesCleartextTraffic="false"`: kein unverschlüsseltes HTTP. |
+| **Build** | Prüfsumme der Gradle-Distribution in `gradle-wrapper.properties` gepinnt. |
+| **Modell-Downloads** | Jede Modell-Archivdatei ist per **SHA-256** gepinnt, ein abweichender Download wird verworfen. Das Entpacken läuft in ein Staging-Verzeichnis und wird erst bei Erfolg an den Zielort verschoben, sodass keine halben Modelle liegen bleiben. Ein strengerer Schutz gegen Path Traversal greift auch bei gleichem Präfix (`out-evil/`), und Symlinks oder Device-Einträge im Archiv werden ignoriert. |
+| **Empfohlenes Modell** | **Parakeet 0.6B** (mehrsprachig, inkl. Deutsch) statt des rein englischen Parakeet 110M. |
+| **Overlay** | Der Eingabefokus wird in **allen** App-Fenstern gesucht (Dialoge, Bottom Sheets), und das Tastaturfenster ist ein eigenes Signal. Der Idle-Button ist etwas heller und besser sichtbar. Native Ladefehler des lokalen Modells (`UnsatisfiedLinkError`) können den Dienst nicht mehr abstürzen lassen. |
+| **KI-Cleanup** | Strikte **Ton- und Wortlauterhaltung**: kein Umformulieren, Register und du/Sie bleiben, Umgangssprache ("hab", "grad", "halt", "mal") bleibt. |
+| **Schweizer Deutsch** | Cleanup- und Sprachbefehl-Prompts verlangen **echte Umlaute** (ä/ö/ü statt ae/oe/ue) und **"ss" statt "ß"**. Zusätzlich wird jedes "ß" in KI-Antworten deterministisch zu "ss". Gilt nur für KI-Ausgaben, nicht für die rohe Transkription. |
+| **Secret-Schutz** | Git-Hooks in [`scripts/git-hooks/`](scripts/git-hooks/) blockieren Commits und Pushes, die API-Keys (Groq, OpenRouter, OpenAI, Anthropic, Google, GitHub, AWS), private Schlüssel, Keystore-Passwörter oder Dateien wie `*.jks` oder `keystore.properties` enthalten. |
+
+## Bauen
+
+Voraussetzungen: JDK 17 oder 21 und das Android SDK. Unter Windows `JAVA_HOME` auf ein vollständiges JDK setzen.
+
+```bash
+./gradlew testDebugUnitTest   # Unit-Tests
+./gradlew assembleDebug       # Debug-Build -> app/build/outputs/apk/debug/app-debug.apk
+./gradlew assembleRelease     # "QA"-Build: optimiert, nicht debuggable -> app/build/outputs/apk/release/
+```
+
+Der Release-Build braucht eine lokale `keystore.properties` im Projektroot. Sie wird **nie committet**:
+
+```properties
+storeFile=keystore/<dein-keystore>.jks
+storePassword=<dein-passwort>
+keyAlias=<dein-alias>
+keyPassword=<dein-passwort>
+```
+
+Einen eigenen Schlüssel erzeugst du einmalig so:
+
+```bash
+keytool -genkeypair -v -keystore keystore/openwispr-local.jks -keyalg RSA -keysize 4096 -validity 10000 -alias openwispr
+```
+
+Wichtig:
+
+- **Keystore und Passwörter separat sichern**, zum Beispiel im Passwort-Manager. Geht der Schlüssel verloren, lassen sich keine Updates mehr installieren. Die App muss dann deinstalliert werden, und Einstellungen, API-Key und Modelle sind weg.
+- **Debug- und Release-Build haben verschiedene Signaturen.** Android lässt dich nicht direkt zwischen beiden wechseln, dafür müsstest du deinstallieren. Am besten bei einer Variante bleiben.
+- Der QA-Build macht vor allem die Oberfläche flüssiger. Die Spracherkennung läuft nativ (sherpa-onnx) und ist im Debug-Build kaum langsamer.
+
+## Updates vom Original übernehmen
+
+Einmalig einrichten:
+
+```bash
+git remote add upstream https://github.com/EdiBianco/OpenWhispr.git
+git config rerere.enabled true            # Git merkt sich gelöste Konflikte
+git config core.hooksPath scripts/git-hooks
+```
+
+Bei jedem Update:
+
+```bash
+git fetch upstream
+git checkout local-hardened
+git merge upstream/main
+./gradlew testDebugUnitTest assembleDebug
+git push origin local-hardened
+```
+
+Typische Konfliktstellen:
+
+- **`ModelDownloader.kt`**: Neue Modelle des Originals brauchen eine SHA-256, sonst schlägt der Katalog-Test fehl. Die Prüfsumme holst du dir von GitHub, falls dort veröffentlicht (`gh api repos/k2-fsa/sherpa-onnx/releases/tags/asr-models --jq '.assets[] | "\(.name) \(.digest)"'`). Sonst lädst du das Archiv herunter und berechnest sie mit `sha256sum`.
+- **`UpdateChecker` / Update-UI in `MainActivity.kt`**: Ändert das Original den Updater, entsteht ein "deleted by us"-Konflikt. Dann die Datei wieder löschen und die Update-Teile in `MainActivity.kt` weglassen.
+- **`PostProcessor.kt`**: Der Prompt wird im Original öfter angepasst. Die Upstream-Änderungen übernehmen und den Block "Tone and wording preservation" sowie `GERMAN_SPELLING_RULES` behalten.
+- **`README.md`**: Nur der obere Teil gehört zum Fork. Den Original-README-Teil einfach vom Upstream übernehmen.
+
+## Secret-Schutz im Detail
+
+- **API-Keys** werden nur in der App eingegeben und dort verschlüsselt gespeichert (`SecureKeyStorage`). Sie stehen nie in einer Datei im Projekt.
+- **`.gitignore`** schliesst `keystore.properties`, `keystore/*.jks`, `.env` und `local.properties` aus. Lokale IDE-Dateien (`.idea/`) stehen in `.git/info/exclude`.
+- **Hooks** (`core.hooksPath scripts/git-hooks`): `pre-commit` prüft die gestagten Änderungen, `pre-push` alle Commits, die der Remote noch nicht hat. Bei einem Fehlalarm, und nur dann, kannst du mit `--no-verify` übersteuern.
+- **GitHub Push Protection** des öffentlichen Repos ist das zusätzliche Netz.
+- Falls doch einmal ein Key gepusht wird: **sofort beim Anbieter widerrufen**, zum Beispiel unter [console.groq.com/keys](https://console.groq.com/keys). Den Commit nur zu löschen reicht nicht, denn öffentliche Repos werden innerhalb von Minuten gescannt.
+
+---
+
+# Original-README
+
+*Unverändert aus [EdiBianco/OpenWhispr](https://github.com/EdiBianco/OpenWhispr). Hinweise zu Releases, APK-Downloads und In-App-Updates gelten für diesen Fork **nicht**.*
+
 <p align="center">
   <img src="docs/logo.svg" width="128" height="128" alt="OpenWispr Logo">
 </p>
