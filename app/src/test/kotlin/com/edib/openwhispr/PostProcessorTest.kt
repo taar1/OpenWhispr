@@ -198,4 +198,15 @@ class PostProcessorTest {
             assertTrue(prompt.contains("Never use \"ß\". Always write \"ss\" instead"))
         }
     }
+
+    @Test
+    fun promptKeepsNaturalSpeechAndEndsWithSenseCheck() {
+        val prompt = PostProcessor.effectivePrompt("")
+        assertTrue(prompt.contains("Natural spoken language stays natural:"))
+        assertTrue(prompt.contains("Write \"gibt's\", not \"gibt es\"."))
+        assertTrue(prompt.contains("Final sense check (always do this last, before answering):"))
+        // The sense check comes after all other rules, right before output hygiene.
+        assertTrue(prompt.indexOf("Final sense check") > prompt.indexOf("Developer syntax:"))
+        assertTrue(prompt.indexOf("Final sense check") < prompt.indexOf("Output hygiene:"))
+    }
 }
