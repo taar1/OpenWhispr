@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(dp(40), dp(40)).apply { marginEnd = dp(12) }
         })
         header.addView(TextView(this).apply {
-            text = "OpenWispr"
+            text = "DomiWispr"
             textSize = 32f
         })
         outer.addView(header)
@@ -898,7 +898,7 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             // Some OEMs block the direct per-app request intent -- fall back
             // to the general battery-optimization list where the user can
-            // find OpenWispr and exempt it manually.
+            // find DomiWispr and exempt it manually.
             try {
                 startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
             } catch (e2: Exception) {
@@ -952,7 +952,7 @@ class MainActivity : AppCompatActivity() {
      * system installer -- no browser tab, no external navigation. The final
      * "install this app?" confirmation is a mandatory Android system dialog
      * for a sideloaded APK and can't be skipped, but everything up to that
-     * point (download, progress) happens invisibly inside OpenWispr. */
+     * point (download, progress) happens invisibly inside DomiWispr. */
     private fun downloadAndInstallUpdate(info: UpdateChecker.UpdateInfo) {
         val apkUrl = info.apkUrl
         if (apkUrl == null) {

@@ -41,6 +41,19 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".LearnCorrectionActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:label="@string/learn_correction_label"
+            android:theme="@style/Theme.OpenWhispr.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
             android:enabled="false"

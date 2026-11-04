@@ -1,14 +1,14 @@
-# Privacy Policy for OpenWhispr
+# Privacy Policy for DomiWispr
 
-OpenWhispr is an Android dictation app that records speech, transcribes it, and inserts the result into text fields across apps.
+DomiWispr is an Android dictation app that records speech, transcribes it, and inserts the result into text fields across apps.
 
 ## Data handling
 
-OpenWhispr supports two transcription modes.
+DomiWispr supports two transcription modes.
 
 ### Local mode
 
-In local mode, audio is processed on-device using local speech recognition models. Audio does not leave the device. If no local model is available, OpenWhispr shows a message instead of sending the audio to the cloud. If optional cleanup or voice commands are enabled, the transcribed text (not the audio) is sent to Groq's chat API.
+In local mode, audio is processed on-device using local speech recognition models. Audio does not leave the device. If no local model is available, DomiWispr shows a message instead of sending the audio to the cloud. If optional cleanup or voice commands are enabled, the transcribed text (not the audio) is sent to Groq's chat API.
 
 ### Cloud mode
 
@@ -24,13 +24,17 @@ I do not operate a relay server for these requests.
 
 ## Accessibility Service
 
-OpenWhispr uses Android Accessibility Service only to identify the currently focused text field and insert dictated text after you explicitly interact with the floating overlay button.
+DomiWispr uses Android Accessibility Service only to identify the currently focused text field and insert dictated text after you explicitly interact with the floating overlay button.
 
-OpenWhispr is not designed to monitor browsing, collect screen content for analytics, or perform background automation.
+DomiWispr is not designed to monitor browsing, collect screen content for analytics, or perform background automation.
 
 ## Clipboard
 
-To insert text, OpenWhispr places the dictated text on the clipboard and pastes it; if insertion fails, the text stays there for you to paste. It is marked as sensitive, so Android 13+ hides it in the clipboard preview and keyboards that honour this flag keep it out of their clipboard suggestions.
+To insert text, DomiWispr places the dictated text on the clipboard and pastes it; if insertion fails, the text stays there for you to paste. It is marked as sensitive, so Android 13+ hides it in the clipboard preview and keyboards that honour this flag keep it out of their clipboard suggestions.
+
+## Learning from corrections
+
+So that "Learn correction" can compare your corrected text with what was dictated, DomiWispr keeps the last five inserted dictations in memory for up to an hour. They are never written to storage or included in backups, and are gone when the app is closed. Only the dictionary entries you confirm are saved.
 
 ## Update checks
 
@@ -38,7 +42,7 @@ By default, OpenWhispr only contacts GitHub (`api.github.com`) to look for a new
 
 ## Data collection
 
-I do not run a backend for OpenWhispr and do not collect user accounts, analytics, or uploaded recordings myself.
+I do not run a backend for DomiWispr and do not collect user accounts, analytics, or uploaded recordings myself.
 
 Third-party services you choose to use, such as Groq, may process data according to their own terms and privacy policies.
 

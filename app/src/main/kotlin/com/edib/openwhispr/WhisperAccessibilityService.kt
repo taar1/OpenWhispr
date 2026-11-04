@@ -275,7 +275,7 @@ class WhisperAccessibilityService : AccessibilityService() {
     private fun localUnavailableMessage(): String =
         if (localModelLoading) "Local model is still loading, try again in a moment"
         else localModelError
-            ?: "No local model. Download one in OpenWispr, or turn on cloud transcription"
+            ?: "No local model. Download one in DomiWispr, or turn on cloud transcription"
 
     /** Reload local model (called from MainActivity when settings change) */
     fun reloadModel() { thread { initLocalModel() } }
@@ -1105,7 +1105,8 @@ class WhisperAccessibilityService : AccessibilityService() {
     /** Like injectText, but replaces the focused field's entire content
      * instead of inserting at the cursor/selection -- used by voice
      * commands, which transform the whole field rather than append to it. */
-    private fun replaceFieldText(text: String) {
+    private fun replaceFieldText(rawText: String) {
+        val text = SwissSpelling.apply(rawText)
         val candidates = findInjectionCandidates()
         var replaced = false
         try {
@@ -1167,11 +1168,13 @@ class WhisperAccessibilityService : AccessibilityService() {
      * stays there for the user to paste. [feedback] is shown only in that
      * case -- previously it was shown before insertion, even on success. */
     private fun injectText(
-        text: String,
+        rawText: String,
         feedback: String? = getString(R.string.copied_to_clipboard),
         feedbackDurationMs: Long = 2000
     ): Boolean {
+        val text = SwissSpelling.apply(rawText)
         copyToClipboard(text)
+        RecentDictations.record(text)
 
         val candidates = findInjectionCandidates()
         Log.i(TAG, "Injecting text into ${candidates.size} candidate node(s)")

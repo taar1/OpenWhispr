@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenWispr</string>
+    <string name="app_name">DomiWispr</string>
     <string name="accessibility_description">Dictation: records audio, transcribes, and inserts text into focused fields.</string>
-    <string name="notification_channel_name">OpenWispr background service</string>
+    <string name="notification_channel_name">DomiWispr background service</string>
     <string name="notification_channel_description">Keeps the dictation overlay running in the background</string>
-    <string name="notification_content_title">OpenWispr is running</string>
+    <string name="notification_content_title">DomiWispr is running</string>
     <string name="notification_content_text">Tap the floating mic to dictate</string>
     <string name="language">Language</string>
     <string name="language_summary">Choose the app language</string>
@@ -66,7 +66,7 @@
     <string name="add_custom_instructions">Custom instructions</string>
 
     <string name="setup">Setup</string>
-    <string name="accessibility_help">Lets OpenWispr detect the focused text field and insert transcribed text.</string>
+    <string name="accessibility_help">Lets DomiWispr detect the focused text field and insert transcribed text.</string>
     <string name="engine">Engine</string>
     <string name="tap_add_refinements">Tap to add extra refinements</string>
     <string name="voice_commands_summary">Say a trigger phrase to translate, summarize, and more</string>
@@ -100,9 +100,9 @@
 
     <string name="status_ready">Ready — tap the floating microphone to dictate</string>
     <string name="restricted_settings_title">One extra step on Android 13+</string>
-    <string name="restricted_settings_message">Android may restrict accessibility services installed outside Google Play. If the OpenWispr switch is disabled:
+    <string name="restricted_settings_message">Android may restrict accessibility services installed outside Google Play. If the DomiWispr switch is disabled:
 
-1. Long-press the OpenWispr app icon and open App info.
+1. Long-press the DomiWispr app icon and open App info.
 2. Open the menu in the upper-right corner and choose Allow restricted settings.
 3. Return here and enable the accessibility service.</string>
     <string name="open_accessibility_settings">Open Accessibility settings</string>
@@ -110,24 +110,24 @@
     <string name="open_settings_failed">Could not open Settings: %1$s</string>
     <string name="open_battery_settings_failed">Could not open battery settings: %1$s</string>
     <string name="update_available">Update available</string>
-    <string name="update_available_message">OpenWispr %1$s is available. You are currently using %2$s.</string>
+    <string name="update_available_message">DomiWispr %1$s is available. You are currently using %2$s.</string>
     <string name="whats_new">What is new</string>
     <string name="up_to_date">You are using the latest version (%1$s)</string>
     <string name="allow_install_updates">Allow installing updates</string>
-    <string name="allow_install_updates_message">To install updates in OpenWispr, allow it to install unknown apps on the next screen. Then return here and tap Update again.</string>
+    <string name="allow_install_updates_message">To install updates in DomiWispr, allow it to install unknown apps on the next screen. Then return here and tap Update again.</string>
     <string name="continue_button">Continue</string>
     <string name="downloading_update">Downloading update…</string>
     <string name="download_failed">Download failed: %1$s</string>
     <string name="installer_start_failed">Could not start the installer: %1$s</string>
     <string name="keep_dictation_running">Keep dictation running</string>
-    <string name="battery_warning_message">Android battery management or some device manufacturers may stop background apps to save power. This can interrupt dictation while OpenWispr is not on screen.
+    <string name="battery_warning_message">Android battery management or some device manufacturers may stop background apps to save power. This can interrupt dictation while DomiWispr is not on screen.
 
 Allow unrestricted background activity so the dictation service can keep running. You can change this setting later in Android Settings.</string>
     <string name="disable_restrictions">Allow background activity</string>
     <string name="groq_key_help_html">Need a Groq API key? Get one free at &lt;a href="https://console.groq.com/keys"&gt;console.groq.com/keys&lt;/a&gt;.</string>
     <string name="groq_api_key_hint">gsk_…</string>
     <string name="custom_instructions_hint">For example: always spell out NASA</string>
-    <string name="custom_instructions_help">These instructions are added to OpenWispr’s built-in cleanup rules. They cannot override its safety, formatting, or self-correction behavior.</string>
+    <string name="custom_instructions_help">These instructions are added to DomiWispr’s built-in cleanup rules. They cannot override its safety, formatting, or self-correction behavior.</string>
     <string name="default_trigger_phrase">Whisper Command</string>
     <string name="command_mode_help">Say this phrase at the start of a recording to enter command mode instead of normal dictation.</string>
     <string name="command_examples_body">Say %1$s, followed by one of these commands. They apply to text already in the field or to text dictated immediately after the command:
@@ -141,11 +141,11 @@ Allow unrestricted background activity so the dictation service can keep running
 You can combine commands: %1$s, translate to Italian and turn it into a list. They are applied in that order.</string>
     <string name="got_it">Got it</string>
     <string name="overlay_content_description">Dictation microphone. Double-tap to start or stop recording.</string>
-    <string name="grant_audio_permission">Allow microphone access in OpenWispr settings.</string>
+    <string name="grant_audio_permission">Allow microphone access in DomiWispr settings.</string>
     <string name="audio_permission_denied">Microphone permission denied.</string>
     <string name="no_audio_captured">No audio was captured.</string>
     <string name="local_transcription_error">Local transcription failed: %1$s</string>
-    <string name="set_groq_key">Add your Groq API key in OpenWispr settings.</string>
+    <string name="set_groq_key">Add your Groq API key in DomiWispr settings.</string>
     <string name="transcription_error">Transcription failed: %1$s</string>
     <string name="empty_transcript">The transcription service returned no text.</string>
     <string name="no_speech_detected">No speech detected.</string>
@@ -198,6 +198,12 @@ You can combine commands: %1$s, translate to Italian and turn it into a list. Th
     <string name="process_text_label">Add to OpenWhispr dictionary</string>
     <string name="dictionary_no_text">No selected text to add</string>
     <string name="dictionary_added">Added to dictionary</string>
+    <string name="learn_correction_label">Learn correction in OpenWhispr</string>
+    <string name="learn_correction_no_dictation">No recent dictation to compare with. Select your corrected text within an hour of dictating it</string>
+    <string name="learn_correction_nothing_found">No misrecognized words found in the selected text</string>
+    <string name="learn_correction_title">Add to dictionary?</string>
+    <string name="learn_correction_item">%1$s (heard as: %2$s)</string>
+    <string name="learn_correction_add">Add</string>
     <string name="dictionary_title">Custom dictionary</string>
     <string name="dictionary_summary">Help recognize and write names, acronyms, and specialized terms during dictation and cleanup</string>
     <string name="dictionary_word_count">%1$d words</string>
@@ -255,14 +261,14 @@ Reason: %1$s</string>
     <string name="backup_export_failed">Could not save the backup: %1$s</string>
     <string name="backup_restore_done">Settings and keys restored</string>
     <string name="backup_restore_failed">Could not restore: wrong passphrase or damaged file</string>
-    <string name="welcome_title">Welcome to OpenWispr</string>
+    <string name="welcome_title">Welcome to DomiWispr</string>
     <string name="welcome_message">Restore your settings and keys from a backup, or start fresh.</string>
     <string name="welcome_restore">Restore backup</string>
     <string name="welcome_start_fresh">Start fresh</string>
 
     <string name="accessibility_enabled_not_running">Enabled but not running. Tap to turn it off and on.</string>
     <string name="watchdog_channel_name">Dictation service status</string>
-    <string name="watchdog_title">OpenWispr dictation has stopped</string>
+    <string name="watchdog_title">DomiWispr dictation has stopped</string>
     <string name="watchdog_text">Accessibility is on, but the service isn\'t running. Tap to turn it back on.</string>
 
     <string name="migration_title">Upgrade to OpenWispr 4</string>

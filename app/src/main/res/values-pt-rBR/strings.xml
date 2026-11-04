@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenWispr</string>
+    <string name="app_name">DomiWispr</string>
     <string name="accessibility_description">Ditado: grava áudio, transcreve e insere o texto nos campos em foco.</string>
-    <string name="notification_channel_name">Serviço em segundo plano do OpenWispr</string>
+    <string name="notification_channel_name">Serviço em segundo plano do DomiWispr</string>
     <string name="notification_channel_description">Mantém o botão flutuante de ditado ativo em segundo plano</string>
-    <string name="notification_content_title">O OpenWispr está em execução</string>
+    <string name="notification_content_title">O DomiWispr está em execução</string>
     <string name="notification_content_text">Toque no microfone flutuante para ditar</string>
     <string name="language">Idioma</string>
     <string name="language_summary">Escolha o idioma do app</string>
@@ -66,7 +66,7 @@
     <string name="add_custom_instructions">Instruções personalizadas</string>
 
     <string name="setup">Configuração</string>
-    <string name="accessibility_help">Permite que o OpenWispr detecte o campo de texto em foco e insira o texto transcrito.</string>
+    <string name="accessibility_help">Permite que o DomiWispr detecte o campo de texto em foco e insira o texto transcrito.</string>
     <string name="engine">Mecanismo</string>
     <string name="tap_add_refinements">Toque para adicionar mais ajustes</string>
     <string name="voice_commands_summary">Diga uma frase de ativação para traduzir, resumir e muito mais</string>
@@ -100,9 +100,9 @@
 
     <string name="status_ready">Pronto — toque no microfone flutuante para ditar</string>
     <string name="restricted_settings_title">Um passo extra no Android 13 ou superior</string>
-    <string name="restricted_settings_message">O Android pode restringir serviços de acessibilidade instalados fora da Google Play. Se a opção do OpenWispr estiver desativada:
+    <string name="restricted_settings_message">O Android pode restringir serviços de acessibilidade instalados fora da Google Play. Se a opção do DomiWispr estiver desativada:
 
-1. Pressione e segure o ícone do OpenWispr e abra as Informações do app.
+1. Pressione e segure o ícone do DomiWispr e abra as Informações do app.
 2. Abra o menu no canto superior direito e escolha Permitir configurações restritas.
 3. Volte aqui e ative o serviço de acessibilidade.</string>
     <string name="open_accessibility_settings">Abrir configurações de acessibilidade</string>
@@ -110,24 +110,24 @@
     <string name="open_settings_failed">Não foi possível abrir as configurações: %1$s</string>
     <string name="open_battery_settings_failed">Não foi possível abrir as configurações de bateria: %1$s</string>
     <string name="update_available">Atualização disponível</string>
-    <string name="update_available_message">O OpenWispr %1$s está disponível. Você está usando a versão %2$s.</string>
+    <string name="update_available_message">O DomiWispr %1$s está disponível. Você está usando a versão %2$s.</string>
     <string name="whats_new">Novidades</string>
     <string name="up_to_date">Você está usando a versão mais recente (%1$s)</string>
     <string name="allow_install_updates">Permitir instalar atualizações</string>
-    <string name="allow_install_updates_message">Para instalar atualizações do OpenWispr, permita a instalação de apps desconhecidos na próxima tela. Depois volte aqui e toque em Atualizar novamente.</string>
+    <string name="allow_install_updates_message">Para instalar atualizações do DomiWispr, permita a instalação de apps desconhecidos na próxima tela. Depois volte aqui e toque em Atualizar novamente.</string>
     <string name="continue_button">Continuar</string>
     <string name="downloading_update">Baixando a atualização…</string>
     <string name="download_failed">Falha no download: %1$s</string>
     <string name="installer_start_failed">Não foi possível iniciar o instalador: %1$s</string>
     <string name="keep_dictation_running">Manter o ditado funcionando</string>
-    <string name="battery_warning_message">O gerenciamento de bateria do Android ou alguns fabricantes podem parar apps em segundo plano para economizar energia. Isso pode interromper o ditado enquanto o OpenWispr não estiver na tela.
+    <string name="battery_warning_message">O gerenciamento de bateria do Android ou alguns fabricantes podem parar apps em segundo plano para economizar energia. Isso pode interromper o ditado enquanto o DomiWispr não estiver na tela.
 
 Permita a atividade em segundo plano sem restrições para que o serviço de ditado continue funcionando. Você pode alterar essa configuração depois nas configurações do Android.</string>
     <string name="disable_restrictions">Permitir atividade em segundo plano</string>
     <string name="groq_key_help_html">Precisa de uma chave de API da Groq? Gere uma gratuitamente em &lt;a href="https://console.groq.com/keys"&gt;console.groq.com/keys&lt;/a&gt;.</string>
     <string name="groq_api_key_hint">gsk_…</string>
     <string name="custom_instructions_hint">Por exemplo: escreva sempre NASA por extenso</string>
-    <string name="custom_instructions_help">Estas instruções são somadas às regras de limpeza integradas do OpenWispr. Elas não podem substituir a segurança, a formatação ou a autocorreção do app.</string>
+    <string name="custom_instructions_help">Estas instruções são somadas às regras de limpeza integradas do DomiWispr. Elas não podem substituir a segurança, a formatação ou a autocorreção do app.</string>
     <string name="default_trigger_phrase">Whisper Command</string>
     <string name="command_mode_help">Diga esta frase no início de uma gravação para entrar no modo de comando, em vez do ditado normal.</string>
     <string name="command_examples_body">Diga %1$s, seguido de um destes comandos. Eles se aplicam ao texto que já está no campo ou ao texto ditado logo após o comando:
@@ -141,11 +141,11 @@ Permita a atividade em segundo plano sem restrições para que o serviço de dit
 Você pode combinar comandos: %1$s, traduza para o inglês e transforme em uma lista. Eles são aplicados nessa ordem.</string>
     <string name="got_it">Entendi</string>
     <string name="overlay_content_description">Microfone de ditado. Toque duas vezes para iniciar ou parar a gravação.</string>
-    <string name="grant_audio_permission">Permita o acesso ao microfone nas configurações do OpenWispr.</string>
+    <string name="grant_audio_permission">Permita o acesso ao microfone nas configurações do DomiWispr.</string>
     <string name="audio_permission_denied">Permissão de microfone negada.</string>
     <string name="no_audio_captured">Nenhum áudio foi capturado.</string>
     <string name="local_transcription_error">Falha na transcrição local: %1$s</string>
-    <string name="set_groq_key">Adicione sua chave de API da Groq nas configurações do OpenWispr.</string>
+    <string name="set_groq_key">Adicione sua chave de API da Groq nas configurações do DomiWispr.</string>
     <string name="transcription_error">Falha na transcrição: %1$s</string>
     <string name="empty_transcript">O serviço de transcrição não retornou texto.</string>
     <string name="no_speech_detected">Nenhuma fala detectada.</string>
@@ -193,14 +193,20 @@ Você pode combinar comandos: %1$s, traduza para o inglês e transforme em uma l
     <string name="percent_unit">por cento</string>
     <string name="saved_securely">Salvo com segurança</string>
 
-    <string name="process_text_label">Adicionar ao dicionário do OpenWispr</string>
+    <string name="process_text_label">Adicionar ao dicionário do DomiWispr</string>
     <string name="dictionary_no_text">Nenhum texto selecionado para adicionar</string>
     <string name="dictionary_added">Adicionado ao dicionário</string>
+    <string name="learn_correction_label">Aprender correção no OpenWhispr</string>
+    <string name="learn_correction_no_dictation">Nenhum ditado recente para comparar. Selecione o texto corrigido em até uma hora após o ditado</string>
+    <string name="learn_correction_nothing_found">Nenhuma palavra reconhecida incorretamente no texto selecionado</string>
+    <string name="learn_correction_title">Adicionar ao dicionário?</string>
+    <string name="learn_correction_item">%1$s (ouvido como: %2$s)</string>
+    <string name="learn_correction_add">Adicionar</string>
     <string name="dictionary_title">Dicionário personalizado</string>
     <string name="dictionary_summary">Ajuda a reconhecer e escrever nomes, siglas e termos especializados durante o ditado e a limpeza</string>
     <string name="dictionary_word_count">%1$d palavras</string>
-    <string name="dictionary_input_hint">Uma entrada por linha. Exemplo: OpenWispr | open whisper, open wisper</string>
-    <string name="dictionary_saved_local_message">O dicionário ajuda a reconhecer e escrever nomes, siglas e termos especializados durante o ditado e a limpeza. A forma antes de | é a grafia final; as variantes depois de | são apenas dicas de pronúncia e reconhecimento. O dicionário continua ativo com as instruções personalizadas. Linhas antigas com um único termo ainda funcionam. Exemplo: OpenWispr | open whisper, open wisper.</string>
+    <string name="dictionary_input_hint">Uma entrada por linha. Exemplo: DomiWispr | open whisper, open wisper</string>
+    <string name="dictionary_saved_local_message">O dicionário ajuda a reconhecer e escrever nomes, siglas e termos especializados durante o ditado e a limpeza. A forma antes de | é a grafia final; as variantes depois de | são apenas dicas de pronúncia e reconhecimento. O dicionário continua ativo com as instruções personalizadas. Linhas antigas com um único termo ainda funcionam. Exemplo: DomiWispr | open whisper, open wisper.</string>
 
     <string name="about_current_version">Você está na versão %1$s · toque para verificar</string>
     <string name="key_needed_hint">Não definida — necessária para a nuvem e a limpeza</string>
@@ -252,14 +258,14 @@ Motivo: %1$s</string>
     <string name="backup_export_failed">Não foi possível salvar o backup: %1$s</string>
     <string name="backup_restore_done">Configurações e chaves restauradas</string>
     <string name="backup_restore_failed">Não foi possível restaurar: senha incorreta ou arquivo danificado</string>
-    <string name="welcome_title">Bem-vindo ao OpenWispr</string>
+    <string name="welcome_title">Bem-vindo ao DomiWispr</string>
     <string name="welcome_message">Restaure suas configurações e chaves de um backup ou comece do zero.</string>
     <string name="welcome_restore">Restaurar backup</string>
     <string name="welcome_start_fresh">Começar do zero</string>
 
     <string name="accessibility_enabled_not_running">Ativado, mas não está em execução. Toque para desativar e ativar novamente.</string>
     <string name="watchdog_channel_name">Status do serviço de ditado</string>
-    <string name="watchdog_title">O ditado do OpenWispr parou</string>
+    <string name="watchdog_title">O ditado do DomiWispr parou</string>
     <string name="watchdog_text">A acessibilidade está ativada, mas o serviço não está em execução. Toque para ativá-la novamente.</string>
 
     <string name="migration_title">Atualizar para o OpenWispr 4</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenWispr</string>
+    <string name="app_name">DomiWispr</string>
     <string name="accessibility_description">Dictée : enregistre l’audio, le transcrit et insère le texte dans le champ actif.</string>
-    <string name="notification_channel_name">Service en arrière-plan OpenWispr</string>
+    <string name="notification_channel_name">Service en arrière-plan DomiWispr</string>
     <string name="notification_channel_description">Maintient la fenêtre de dictée active en arrière-plan</string>
-    <string name="notification_content_title">OpenWispr est en cours d’exécution</string>
+    <string name="notification_content_title">DomiWispr est en cours d’exécution</string>
     <string name="notification_content_text">Touchez le micro flottant pour dicter</string>
     <string name="language">Langue</string>
     <string name="language_summary">Choisir la langue de l’application</string>
@@ -66,7 +66,7 @@
     <string name="add_custom_instructions">Consignes personnalisées</string>
 
     <string name="setup">Configuration</string>
-    <string name="accessibility_help">Permet à OpenWispr de détecter le champ actif et d’y insérer le texte transcrit.</string>
+    <string name="accessibility_help">Permet à DomiWispr de détecter le champ actif et d’y insérer le texte transcrit.</string>
     <string name="engine">Moteur</string>
     <string name="tap_add_refinements">Touchez pour ajouter des consignes</string>
     <string name="voice_commands_summary">Dites une phrase déclencheuse pour traduire, résumer et plus encore</string>
@@ -100,9 +100,9 @@
 
     <string name="status_ready">Prêt — touchez le micro flottant pour dicter</string>
     <string name="restricted_settings_title">Étape supplémentaire sur Android 13+</string>
-    <string name="restricted_settings_message">Android peut restreindre les services d’accessibilité installés en dehors de Google Play. Si l’interrupteur d’OpenWispr est désactivé :
+    <string name="restricted_settings_message">Android peut restreindre les services d’accessibilité installés en dehors de Google Play. Si l’interrupteur d’DomiWispr est désactivé :
 
-1. Appuyez longuement sur l’icône d’OpenWispr et ouvrez Informations sur l’application.
+1. Appuyez longuement sur l’icône d’DomiWispr et ouvrez Informations sur l’application.
 2. Ouvrez le menu en haut à droite, puis choisissez Autoriser les paramètres restreints.
 3. Revenez ici et activez le service d’accessibilité.</string>
     <string name="open_accessibility_settings">Ouvrir les paramètres d’accessibilité</string>
@@ -110,24 +110,24 @@
     <string name="open_settings_failed">Impossible d’ouvrir les paramètres : %1$s</string>
     <string name="open_battery_settings_failed">Impossible d’ouvrir les paramètres de batterie : %1$s</string>
     <string name="update_available">Mise à jour disponible</string>
-    <string name="update_available_message">OpenWispr %1$s est disponible. Votre version actuelle est la %2$s.</string>
+    <string name="update_available_message">DomiWispr %1$s est disponible. Votre version actuelle est la %2$s.</string>
     <string name="whats_new">Nouveautés</string>
     <string name="up_to_date">Vous utilisez la dernière version (%1$s)</string>
     <string name="allow_install_updates">Autoriser l’installation des mises à jour</string>
-    <string name="allow_install_updates_message">Pour installer les mises à jour dans OpenWispr, autorisez l’installation d’applications inconnues sur l’écran suivant. Revenez ensuite ici et touchez de nouveau Mettre à jour.</string>
+    <string name="allow_install_updates_message">Pour installer les mises à jour dans DomiWispr, autorisez l’installation d’applications inconnues sur l’écran suivant. Revenez ensuite ici et touchez de nouveau Mettre à jour.</string>
     <string name="continue_button">Continuer</string>
     <string name="downloading_update">Téléchargement de la mise à jour…</string>
     <string name="download_failed">Échec du téléchargement : %1$s</string>
     <string name="installer_start_failed">Impossible de démarrer le programme d’installation : %1$s</string>
     <string name="keep_dictation_running">Maintenir la dictée active</string>
-    <string name="battery_warning_message">La gestion de la batterie Android ou certains fabricants peuvent arrêter les applications en arrière-plan pour économiser l’énergie. Cela peut interrompre la dictée lorsque OpenWispr n’est pas à l’écran.
+    <string name="battery_warning_message">La gestion de la batterie Android ou certains fabricants peuvent arrêter les applications en arrière-plan pour économiser l’énergie. Cela peut interrompre la dictée lorsque DomiWispr n’est pas à l’écran.
 
 Autorisez l’activité sans restriction en arrière-plan pour que le service de dictée puisse rester actif. Vous pourrez modifier ce réglage plus tard dans les paramètres Android.</string>
     <string name="disable_restrictions">Autoriser l’activité en arrière-plan</string>
     <string name="groq_key_help_html">Besoin d’une clé API Groq ? Obtenez-en une gratuitement ici : &lt;a href="https://console.groq.com/keys"&gt;console.groq.com/keys&lt;/a&gt;.</string>
     <string name="groq_api_key_hint">gsk_…</string>
     <string name="custom_instructions_hint">Par exemple : toujours écrire NASA en toutes lettres</string>
-    <string name="custom_instructions_help">Ces consignes complètent les règles intégrées de correction d’OpenWispr. Elles ne peuvent pas remplacer ses règles de sécurité, de mise en forme ou d’autocorrection.</string>
+    <string name="custom_instructions_help">Ces consignes complètent les règles intégrées de correction d’DomiWispr. Elles ne peuvent pas remplacer ses règles de sécurité, de mise en forme ou d’autocorrection.</string>
     <string name="default_trigger_phrase">Commande Whisper</string>
     <string name="command_mode_help">Dites cette phrase au début d’un enregistrement pour passer en mode commande plutôt qu’en dictée normale.</string>
     <string name="command_examples_body">Dites %1$s, puis l’une de ces commandes. Elles s’appliquent au texte déjà présent dans le champ ou au texte dicté juste après la commande :
@@ -141,11 +141,11 @@ Autorisez l’activité sans restriction en arrière-plan pour que le service de
 Vous pouvez combiner des commandes : %1$s, traduis en italien puis transforme le texte en liste. Elles seront appliquées dans cet ordre.</string>
     <string name="got_it">Compris</string>
     <string name="overlay_content_description">Micro de dictée. Touchez deux fois pour démarrer ou arrêter l’enregistrement.</string>
-    <string name="grant_audio_permission">Autorisez l’accès au microphone dans les paramètres d’OpenWispr.</string>
+    <string name="grant_audio_permission">Autorisez l’accès au microphone dans les paramètres d’DomiWispr.</string>
     <string name="audio_permission_denied">Autorisation d’accès au microphone refusée.</string>
     <string name="no_audio_captured">Aucun son n’a été enregistré.</string>
     <string name="local_transcription_error">Échec de la transcription locale : %1$s</string>
-    <string name="set_groq_key">Ajoutez votre clé API Groq dans les paramètres d’OpenWispr.</string>
+    <string name="set_groq_key">Ajoutez votre clé API Groq dans les paramètres d’DomiWispr.</string>
     <string name="transcription_error">Échec de la transcription : %1$s</string>
     <string name="empty_transcript">Le service de transcription n’a renvoyé aucun texte.</string>
     <string name="no_speech_detected">Aucune parole détectée.</string>
@@ -198,6 +198,12 @@ Vous pouvez combiner des commandes : %1$s, traduis en italien puis transforme le
     <string name="process_text_label">Ajouter au dictionnaire OpenWhispr</string>
     <string name="dictionary_no_text">Aucun texte sélectionné à ajouter</string>
     <string name="dictionary_added">Ajouté au dictionnaire</string>
+    <string name="learn_correction_label">Apprendre la correction (OpenWhispr)</string>
+    <string name="learn_correction_no_dictation">Aucune dictée récente à comparer. Sélectionnez le texte corrigé dans l\'heure qui suit la dictée</string>
+    <string name="learn_correction_nothing_found">Aucun mot mal reconnu dans le texte sélectionné</string>
+    <string name="learn_correction_title">Ajouter au dictionnaire ?</string>
+    <string name="learn_correction_item">%1$s (entendu : %2$s)</string>
+    <string name="learn_correction_add">Ajouter</string>
     <string name="dictionary_title">Dictionnaire personnalisé</string>
     <string name="dictionary_summary">Aider à reconnaître et écrire les noms propres, acronymes et termes spécialisés pendant la dictée et la correction</string>
     <string name="dictionary_word_count">%1$d mots</string>
@@ -255,14 +261,14 @@ Raison : %1$s</string>
     <string name="backup_export_failed">Impossible d\'enregistrer la sauvegarde : %1$s</string>
     <string name="backup_restore_done">Réglages et clés restaurés</string>
     <string name="backup_restore_failed">Restauration impossible : mot de passe incorrect ou fichier endommagé</string>
-    <string name="welcome_title">Bienvenue dans OpenWispr</string>
+    <string name="welcome_title">Bienvenue dans DomiWispr</string>
     <string name="welcome_message">Restaurez vos réglages et clés depuis une sauvegarde, ou commencez à zéro.</string>
     <string name="welcome_restore">Restaurer une sauvegarde</string>
     <string name="welcome_start_fresh">Commencer à zéro</string>
 
     <string name="accessibility_enabled_not_running">Activé mais inactif. Touchez pour le désactiver puis le réactiver.</string>
     <string name="watchdog_channel_name">État du service de dictée</string>
-    <string name="watchdog_title">La dictée OpenWispr s\'est arrêtée</string>
+    <string name="watchdog_title">La dictée DomiWispr s\'est arrêtée</string>
     <string name="watchdog_text">L\'accessibilité est activée, mais le service ne tourne pas. Touchez pour la réactiver.</string>
 
     <string name="migration_title">Passer à OpenWispr 4</string>

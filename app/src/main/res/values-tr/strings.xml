@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenWispr</string>
+    <string name="app_name">DomiWispr</string>
     <string name="accessibility_description">Dikte: sesi kaydeder, metne çevirir ve metni odaklanılan alanlara ekler.</string>
-    <string name="notification_channel_name">OpenWispr arka plan hizmeti</string>
+    <string name="notification_channel_name">DomiWispr arka plan hizmeti</string>
     <string name="notification_channel_description">Dikte kayan düğmesini arka planda çalışır durumda tutar</string>
-    <string name="notification_content_title">OpenWispr çalışıyor</string>
+    <string name="notification_content_title">DomiWispr çalışıyor</string>
     <string name="notification_content_text">Dikte etmek için kayan mikrofona dokunun</string>
     <string name="language">Dil</string>
     <string name="language_summary">Uygulama dilini seçin</string>
@@ -66,7 +66,7 @@
     <string name="add_custom_instructions">Özel talimatlar</string>
 
     <string name="setup">Kurulum</string>
-    <string name="accessibility_help">OpenWispr\'ın odaklanılan metin alanını algılamasına ve metni eklemesine izin verir.</string>
+    <string name="accessibility_help">DomiWispr\'ın odaklanılan metin alanını algılamasına ve metni eklemesine izin verir.</string>
     <string name="engine">Motor</string>
     <string name="tap_add_refinements">Ek iyileştirmeler eklemek için dokunun</string>
     <string name="voice_commands_summary">Çevirmek, özetlemek ve daha fazlası için bir tetikleyici ifade söyleyin</string>
@@ -100,9 +100,9 @@
 
     <string name="status_ready">Hazır — dikte etmek için kayan mikrofona dokunun</string>
     <string name="restricted_settings_title">Android 13 ve sonrası için ek bir adım</string>
-    <string name="restricted_settings_message">Android, Google Play dışından yüklenen erişilebilirlik hizmetlerini kısıtlayabilir. OpenWispr anahtarı kapalıysa:
+    <string name="restricted_settings_message">Android, Google Play dışından yüklenen erişilebilirlik hizmetlerini kısıtlayabilir. DomiWispr anahtarı kapalıysa:
 
-1. OpenWispr simgesine uzun basın ve Uygulama bilgisi\'ni açın.
+1. DomiWispr simgesine uzun basın ve Uygulama bilgisi\'ni açın.
 2. Sağ üstteki menüyü açın ve Kısıtlı ayarlara izin ver\'i seçin.
 3. Buraya dönün ve erişilebilirlik hizmetini etkinleştirin.</string>
     <string name="open_accessibility_settings">Erişilebilirlik ayarlarını aç</string>
@@ -110,24 +110,24 @@
     <string name="open_settings_failed">Ayarlar açılamadı: %1$s</string>
     <string name="open_battery_settings_failed">Pil ayarları açılamadı: %1$s</string>
     <string name="update_available">Güncelleme mevcut</string>
-    <string name="update_available_message">OpenWispr %1$s kullanılabilir. Şu anda %2$s sürümünü kullanıyorsunuz.</string>
+    <string name="update_available_message">DomiWispr %1$s kullanılabilir. Şu anda %2$s sürümünü kullanıyorsunuz.</string>
     <string name="whats_new">Yenilikler</string>
     <string name="up_to_date">En son sürümü kullanıyorsunuz (%1$s)</string>
     <string name="allow_install_updates">Güncelleme yüklemeye izin ver</string>
-    <string name="allow_install_updates_message">OpenWispr güncellemelerini yüklemek için bir sonraki ekranda bilinmeyen uygulamaların yüklenmesine izin verin. Sonra buraya dönüp Güncelle\'ye tekrar dokunun.</string>
+    <string name="allow_install_updates_message">DomiWispr güncellemelerini yüklemek için bir sonraki ekranda bilinmeyen uygulamaların yüklenmesine izin verin. Sonra buraya dönüp Güncelle\'ye tekrar dokunun.</string>
     <string name="continue_button">Devam</string>
     <string name="downloading_update">Güncelleme indiriliyor…</string>
     <string name="download_failed">İndirme başarısız: %1$s</string>
     <string name="installer_start_failed">Yükleyici başlatılamadı: %1$s</string>
     <string name="keep_dictation_running">Diktenin çalışmaya devam etmesini sağla</string>
-    <string name="battery_warning_message">Android pil yönetimi veya bazı cihaz üreticileri, pil tasarrufu için arka plan uygulamalarını durdurabilir. OpenWispr ekranda değilken bu, diktenin kesilmesine neden olabilir.
+    <string name="battery_warning_message">Android pil yönetimi veya bazı cihaz üreticileri, pil tasarrufu için arka plan uygulamalarını durdurabilir. DomiWispr ekranda değilken bu, diktenin kesilmesine neden olabilir.
 
 Dikte hizmetinin çalışmaya devam edebilmesi için arka plan etkinliğine kısıtlamasız izin verin. Bu ayarı daha sonra Android Ayarları\'ndan değiştirebilirsiniz.</string>
     <string name="disable_restrictions">Arka plan etkinliğine izin ver</string>
     <string name="groq_key_help_html">Groq API anahtarına mı ihtiyacınız var? &lt;a href="https://console.groq.com/keys"&gt;console.groq.com/keys&lt;/a&gt; adresinden ücretsiz alabilirsiniz.</string>
     <string name="groq_api_key_hint">gsk_…</string>
     <string name="custom_instructions_hint">Örneğin: NASA her zaman tam olarak yazılsın</string>
-    <string name="custom_instructions_help">Bu talimatlar OpenWispr\'ın yerleşik düzenleme kurallarına eklenir. Güvenlik, biçimlendirme veya kendini düzeltme davranışlarını geçersiz kılamazlar.</string>
+    <string name="custom_instructions_help">Bu talimatlar DomiWispr\'ın yerleşik düzenleme kurallarına eklenir. Güvenlik, biçimlendirme veya kendini düzeltme davranışlarını geçersiz kılamazlar.</string>
     <string name="default_trigger_phrase">Whisper Command</string>
     <string name="command_mode_help">Normal dikte yerine komut moduna geçmek için kaydın başında bu ifadeyi söyleyin.</string>
     <string name="command_examples_body">%1$s deyin, ardından şu komutlardan birini söyleyin. Komutlar alandaki mevcut metne veya komuttan hemen sonra dikte edilen metne uygulanır:
@@ -141,11 +141,11 @@ Dikte hizmetinin çalışmaya devam edebilmesi için arka plan etkinliğine kıs
 Komutları birleştirebilirsiniz: %1$s, İngilizceye çevir ve bir listeye dönüştür. Bu sırayla uygulanırlar.</string>
     <string name="got_it">Anladım</string>
     <string name="overlay_content_description">Dikte mikrofonu. Kaydı başlatmak veya durdurmak için iki kez dokunun.</string>
-    <string name="grant_audio_permission">OpenWispr ayarlarında mikrofon erişimine izin verin.</string>
+    <string name="grant_audio_permission">DomiWispr ayarlarında mikrofon erişimine izin verin.</string>
     <string name="audio_permission_denied">Mikrofon izni reddedildi.</string>
     <string name="no_audio_captured">Ses kaydedilmedi.</string>
     <string name="local_transcription_error">Yerel metne çevirme başarısız: %1$s</string>
-    <string name="set_groq_key">OpenWispr ayarlarına Groq API anahtarınızı ekleyin.</string>
+    <string name="set_groq_key">DomiWispr ayarlarına Groq API anahtarınızı ekleyin.</string>
     <string name="transcription_error">Metne çevirme başarısız: %1$s</string>
     <string name="empty_transcript">Metne çevirme hizmeti metin döndürmedi.</string>
     <string name="no_speech_detected">Konuşma algılanmadı.</string>
@@ -193,14 +193,20 @@ Komutları birleştirebilirsiniz: %1$s, İngilizceye çevir ve bir listeye dön�
     <string name="percent_unit">yüzde</string>
     <string name="saved_securely">Güvenli şekilde kaydedildi</string>
 
-    <string name="process_text_label">OpenWispr sözlüğüne ekle</string>
+    <string name="process_text_label">DomiWispr sözlüğüne ekle</string>
     <string name="dictionary_no_text">Eklenecek seçili metin yok</string>
     <string name="dictionary_added">Sözlüğe eklendi</string>
+    <string name="learn_correction_label">OpenWhispr ile düzeltmeyi öğren</string>
+    <string name="learn_correction_no_dictation">Karşılaştırılacak yakın tarihli dikte yok. Düzeltilmiş metni dikteden sonraki bir saat içinde seçin</string>
+    <string name="learn_correction_nothing_found">Seçilen metinde yanlış tanınan kelime bulunamadı</string>
+    <string name="learn_correction_title">Sözlüğe eklensin mi?</string>
+    <string name="learn_correction_item">%1$s (duyulan: %2$s)</string>
+    <string name="learn_correction_add">Ekle</string>
     <string name="dictionary_title">Özel sözlük</string>
     <string name="dictionary_summary">Dikte ve düzenleme sırasında adları, kısaltmaları ve özel terimleri tanımaya ve doğru yazmaya yardımcı olur</string>
     <string name="dictionary_word_count">%1$d kelime</string>
-    <string name="dictionary_input_hint">Satır başına bir girdi. Örnek: OpenWispr | open whisper, open wisper</string>
-    <string name="dictionary_saved_local_message">Sözlük, dikte ve düzenleme sırasında adları, kısaltmaları ve özel terimleri tanımaya ve doğru yazmaya yardımcı olur. | işaretinden önceki biçim son yazımdır; | işaretinden sonraki varyantlar yalnızca telaffuz ve tanıma ipuçlarıdır. Sözlük özel talimatlarla birlikte etkin kalır. Eski tek terimli satırlar da çalışmaya devam eder. Örnek: OpenWispr | open whisper, open wisper.</string>
+    <string name="dictionary_input_hint">Satır başına bir girdi. Örnek: DomiWispr | open whisper, open wisper</string>
+    <string name="dictionary_saved_local_message">Sözlük, dikte ve düzenleme sırasında adları, kısaltmaları ve özel terimleri tanımaya ve doğru yazmaya yardımcı olur. | işaretinden önceki biçim son yazımdır; | işaretinden sonraki varyantlar yalnızca telaffuz ve tanıma ipuçlarıdır. Sözlük özel talimatlarla birlikte etkin kalır. Eski tek terimli satırlar da çalışmaya devam eder. Örnek: DomiWispr | open whisper, open wisper.</string>
 
     <string name="about_current_version">v%1$s kullanıyorsunuz · denetlemek için dokunun</string>
     <string name="key_needed_hint">Ayarlanmadı — bulut ve düzenleme için gerekli</string>
@@ -252,14 +258,14 @@ Neden: %1$s</string>
     <string name="backup_export_failed">Yedek kaydedilemedi: %1$s</string>
     <string name="backup_restore_done">Ayarlar ve anahtarlar geri yüklendi</string>
     <string name="backup_restore_failed">Geri yüklenemedi: parola yanlış veya dosya bozuk</string>
-    <string name="welcome_title">OpenWispr\'a hoş geldiniz</string>
+    <string name="welcome_title">DomiWispr\'a hoş geldiniz</string>
     <string name="welcome_message">Ayarlarınızı ve anahtarlarınızı bir yedekten geri yükleyin ya da sıfırdan başlayın.</string>
     <string name="welcome_restore">Yedekten geri yükle</string>
     <string name="welcome_start_fresh">Sıfırdan başla</string>
 
     <string name="accessibility_enabled_not_running">Açık ama çalışmıyor. Kapatıp yeniden açmak için dokunun.</string>
     <string name="watchdog_channel_name">Dikte hizmeti durumu</string>
-    <string name="watchdog_title">OpenWispr dikte durdu</string>
+    <string name="watchdog_title">DomiWispr dikte durdu</string>
     <string name="watchdog_text">Erişilebilirlik açık, ancak hizmet çalışmıyor. Yeniden açmak için dokunun.</string>
 
     <string name="migration_title">OpenWispr 4\'e geç</string>

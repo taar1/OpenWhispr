@@ -54,7 +54,7 @@ object SettingsBackup {
     fun decrypt(file: String, passphrase: String): Snapshot {
         try {
             val envelope = JSONObject(file)
-            require(envelope.getString("format") == FORMAT) { "not an OpenWispr backup" }
+            require(envelope.getString("format") == FORMAT) { "not an DomiWispr backup" }
             require(envelope.getInt("version") == VERSION) { "unsupported backup version" }
             val kdf = envelope.getJSONObject("kdf")
             val salt = unb64(kdf.getString("salt"))

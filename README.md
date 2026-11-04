@@ -1,14 +1,14 @@
 <p align="center">
-  <img src="docs/logo.svg" width="128" height="128" alt="OpenWispr Logo">
+  <img src="docs/logo.svg" width="128" height="128" alt="DomiWispr Logo">
 </p>
 
-# OpenWispr
+# DomiWispr
 
 [![Download APK - Latest Version](https://img.shields.io/github/v/release/EdiBianco/OpenWhispr?label=Download%20APK&logo=android)](https://github.com/EdiBianco/OpenWhispr/releases/latest)
 
 Free, open-source, on-device push-to-talk dictation for Android — a free alternative to [Wispr Flow](https://wisprflow.ai).
 
-Speak naturally into any app and OpenWispr turns your raw speech into clear, polished text: filler words removed, punctuation and formatting fixed automatically, then inserted straight into whatever field you're already typing in. Tap the floating button, speak, tap again — done.
+Speak naturally into any app and DomiWispr turns your raw speech into clear, polished text: filler words removed, punctuation and formatting fixed automatically, then inserted straight into whatever field you're already typing in. Tap the floating button, speak, tap again — done.
 
 It's completely free to run. Cloud transcription and cleanup use your own [Groq](https://groq.com) API key, and Groq's free tier is generous enough for everyday dictation without paying anything. Prefer to keep everything on-device? Local transcription needs no API key or internet connection at all.
 
@@ -81,7 +81,7 @@ make adb-install
 
 ## Voice commands
 
-Say **"Whisper Command"** at the start of a recording, followed by one of five whitelisted operations, and OpenWispr applies it to whatever's already in the focused field (or to text you dictate right after the command, if you give it fresh content). You can also dictate first and command last: speak your text, then say the trigger phrase and the action. The trigger phrase is the break, with or without a pause ("Hello team, the meeting moved to five. Whisper Command, translate to Italian"). The text before the trigger is what the command works on, and the result is inserted like normal dictation:
+Say **"Whisper Command"** at the start of a recording, followed by one of five whitelisted operations, and DomiWispr applies it to whatever's already in the focused field (or to text you dictate right after the command, if you give it fresh content). You can also dictate first and command last: speak your text, then say the trigger phrase and the action. The trigger phrase is the break, with or without a pause ("Hello team, the meeting moved to five. Whisper Command, translate to Italian"). The text before the trigger is what the command works on, and the result is inserted like normal dictation:
 
 - `"Whisper Command, summarize this in two sentences"` -- summarize, with an optional length or limit
 - `"Whisper Command, enhance the flow"` -- rewrite for smoother, more natural flow without changing meaning
@@ -99,19 +99,19 @@ Off by default -- enable it under **Voice Commands** in the app, where you can a
 
 ### First-time setup
 
-1. Open **OpenWispr*(*
+1. Open **DomiWispr*(*
 2. Grant the **audio recording** permission
 3. Enable the **Accessibility Service**
 4. Choose your transcription mode:
    - **Local**: download a model in the app
    - **Cloud**: paste your free [Groq API key](https://console.groq.com/keys) — the app links straight to that page when you tap to set the key
-5. When prompted, allow OpenWispr to run **unrestricted by battery optimization** — otherwise Android may shut the background service down and the overlay will disappear until you reopen the app
+5. When prompted, allow DomiWispr to run **unrestricted by battery optimization** — otherwise Android may shut the background service down and the overlay will disappear until you reopen the app
 
 Once setup is done, the floating button is ready.
 
 ## Keeping the background service alive
 
-Android is aggressive about killing background services to save battery, and an Accessibility Service is no exception. OpenWispr does a few things to stay running:
+Android is aggressive about killing background services to save battery, and an Accessibility Service is no exception. DomiWispr does a few things to stay running:
 
 - Runs as a **foreground service** with a persistent, silent, minimum-priority notification — the standard way to keep a background service alive when the app is swiped away in the recent-apps screen
 - Prompts you to **exempt the app from battery optimization** (`Settings → Battery optimization` in the app, or the OS dialog it opens) the first time it detects the Accessibility Service is on but the exemption isn't granted
@@ -119,17 +119,17 @@ Android is aggressive about killing background services to save battery, and an 
 
 A **"Background service"** switch in the app lets you pause dictation (hide the overlay, stop reacting to taps) without revoking the Accessibility permission — handy if you want to quiet it temporarily instead of walking through Android's accessibility settings.
 
-Some phone manufacturers (Samsung, Xiaomi, OnePlus, and others) layer their own battery/app-sleep managers on top of stock Android and may still kill the service even after you grant the exemption above. If the overlay keeps disappearing, check your phone's own battery/app management settings for an "autostart" or "keep in background" option for OpenWispr.
+Some phone manufacturers (Samsung, Xiaomi, OnePlus, and others) layer their own battery/app-sleep managers on top of stock Android and may still kill the service even after you grant the exemption above. If the overlay keeps disappearing, check your phone's own battery/app management settings for an "autostart" or "keep in background" option for DomiWispr.
 
 ## Why does it need Accessibility?
 
-OpenWispr uses Android Accessibility Service for one narrow reason: to insert dictated text into the currently focused text field across apps.
+DomiWispr uses Android Accessibility Service for one narrow reason: to insert dictated text into the currently focused text field across apps.
 
 It does **not** replace your keyboard. It does **not** run background automation. It only acts after you explicitly tap the overlay button.
 
 ## Privacy
 
-OpenWispr supports two modes:
+DomiWispr supports two modes:
 
 - **Local mode**: audio stays on-device. If no local model is ready, the app tells you instead of falling back to the cloud. (If Cleanup or Voice commands are on, the transcript *text* is still sent to Groq.)
 - **Cloud mode**: audio is sent directly from your device to Groq's transcription API
@@ -170,15 +170,15 @@ make clean       # clean build artifacts
 
 ## App compatibility
 
-OpenWispr works best in apps that use standard Android text fields.
+DomiWispr works best in apps that use standard Android text fields.
 Some apps use custom text surfaces or terminal-style views, which may not support direct accessibility paste.
-When insertion is not possible, OpenWispr falls back to copying the transcript to the clipboard.
+When insertion is not possible, DomiWispr falls back to copying the transcript to the clipboard.
 
 ### Termux
 
 Termux's main terminal area is not a standard Android text field, so direct insertion may not work there.
 
-To use OpenWispr in Termux:
+To use DomiWispr in Termux:
 
 1. Focus Termux
 2. Swipe the extra keys row (`ESC`, `CTRL`, `ALT`, arrows, etc.) left or right
@@ -197,7 +197,7 @@ Once text is inserted into the native input box, Termux sends it to the terminal
 
 ## Contributors
 
-Thanks to everyone who has contributed to OpenWispr:
+Thanks to everyone who has contributed to DomiWispr:
 
 - [@vgkeeper](https://github.com/vgkeeper) (Gaëtan): custom dictionary for transcription and cleanup ([#3](https://github.com/EdiBianco/OpenWhispr/pull/3)), French localization ([#4](https://github.com/EdiBianco/OpenWhispr/pull/4)), resizable dictation bubble ([#5](https://github.com/EdiBianco/OpenWhispr/pull/5)), and keyboard-friendly custom instructions dialog ([#7](https://github.com/EdiBianco/OpenWhispr/pull/7))
 - [@MrASrivastava](https://github.com/MrASrivastava): UI polish, launch splash, voice-reactive overlay, clipboard and privacy fixes, and opt-in checksum-verified update checks ([#1](https://github.com/EdiBianco/OpenWhispr/pull/1))
