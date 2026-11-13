@@ -1172,7 +1172,9 @@ class WhisperAccessibilityService : AccessibilityService() {
         feedback: String? = getString(R.string.copied_to_clipboard),
         feedbackDurationMs: Long = 2000
     ): Boolean {
-        val text = SwissSpelling.apply(rawText)
+        // Leading whitespace (stray spaces/newlines from ASR or the model) is
+        // never wanted at the start of the inserted or copied text.
+        val text = SwissSpelling.apply(rawText).trimStart()
         copyToClipboard(text)
         RecentDictations.record(text)
 
